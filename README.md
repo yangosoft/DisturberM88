@@ -1,2 +1,2 @@
 # DisturberM88
-Disturb with sound
+Disturb with sound. Attiny85
