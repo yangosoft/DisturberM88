@@ -148,7 +148,8 @@
 <wire x1="50" y1="50" x2="50" y2="100" width="0" layer="20"/>
 <wire x1="50" y1="100" x2="0" y2="100" width="0" layer="20"/>
 <wire x1="0" y1="100" x2="0" y2="50" width="0" layer="20"/>
-<text x="45.72" y="90.17" size="1.778" layer="1">vcc</text>
+<text x="45.72" y="91.44" size="1.27" layer="25">VCC</text>
+<text x="44.45" y="67.31" size="1.27" layer="25">VCC</text>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors">
