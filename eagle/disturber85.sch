@@ -3638,6 +3638,8 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <part name="J6" library="SparkFun-Connectors" deviceset="CONN_03" device="" value="455-1750-1-ND"/>
 <part name="J7" library="SparkFun-Connectors" deviceset="CONN_03" device="" value="455-1750-1-ND"/>
 <part name="J8" library="SparkFun-Connectors" deviceset="CONN_03" device="" value="455-1750-1-ND"/>
+<part name="SV3" library="con-lstb" library_urn="urn:adsk.eagle:library:162" deviceset="MA04-1" device="" package3d_urn="urn:adsk.eagle:package:8337/1"/>
+<part name="SV4" library="con-lstb" library_urn="urn:adsk.eagle:library:162" deviceset="MA04-1" device="" package3d_urn="urn:adsk.eagle:package:8337/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -3700,6 +3702,14 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <attribute name="VALUE" x="103.886" y="-68.58" size="1.778" layer="96" font="vector" rot="R90"/>
 <attribute name="NAME" x="90.932" y="-68.58" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
+<instance part="SV3" gate="1" x="-7.62" y="35.56" smashed="yes">
+<attribute name="VALUE" x="-8.89" y="25.4" size="1.778" layer="96"/>
+<attribute name="NAME" x="-8.89" y="41.402" size="1.778" layer="95"/>
+</instance>
+<instance part="SV4" gate="1" x="111.76" y="30.48" smashed="yes">
+<attribute name="VALUE" x="110.49" y="20.32" size="1.778" layer="96"/>
+<attribute name="NAME" x="110.49" y="36.322" size="1.778" layer="95"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -3729,6 +3739,12 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <pinref part="J2" gate="G$1" pin="4"/>
 <wire x1="35.56" y1="-20.32" x2="35.56" y2="-22.86" width="0.1524" layer="91"/>
 <junction x="35.56" y="-25.4"/>
+<pinref part="SV3" gate="1" pin="2"/>
+<wire x1="0" y1="33.02" x2="10.16" y2="33.02" width="0.1524" layer="91"/>
+<junction x="10.16" y="33.02"/>
+<pinref part="SV3" gate="1" pin="1"/>
+<wire x1="0" y1="30.48" x2="10.16" y2="30.48" width="0.1524" layer="91"/>
+<junction x="10.16" y="30.48"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -3856,6 +3872,12 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="91.44" y1="-35.56" x2="91.44" y2="-2.54" width="0.1524" layer="91"/>
 <junction x="91.44" y="-2.54"/>
 <junction x="40.64" y="-25.4"/>
+<pinref part="SV3" gate="1" pin="4"/>
+<wire x1="0" y1="38.1" x2="10.16" y2="38.1" width="0.1524" layer="91"/>
+<junction x="10.16" y="38.1"/>
+<pinref part="SV3" gate="1" pin="3"/>
+<wire x1="0" y1="35.56" x2="10.16" y2="35.56" width="0.1524" layer="91"/>
+<junction x="10.16" y="35.56"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -3902,6 +3924,12 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <pinref part="J4" gate="G$1" pin="4"/>
 <wire x1="152.4" y1="-25.4" x2="152.4" y2="-27.94" width="0.1524" layer="91"/>
 <junction x="152.4" y="-30.48"/>
+<pinref part="SV4" gate="1" pin="2"/>
+<wire x1="119.38" y1="27.94" x2="127" y2="27.94" width="0.1524" layer="91"/>
+<junction x="127" y="27.94"/>
+<pinref part="SV4" gate="1" pin="1"/>
+<wire x1="119.38" y1="25.4" x2="127" y2="25.4" width="0.1524" layer="91"/>
+<junction x="127" y="25.4"/>
 </segment>
 </net>
 <net name="N$10" class="0">
@@ -4029,6 +4057,12 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="208.28" y1="-40.64" x2="208.28" y2="-7.62" width="0.1524" layer="91"/>
 <junction x="208.28" y="-7.62"/>
 <junction x="157.48" y="-30.48"/>
+<pinref part="SV4" gate="1" pin="4"/>
+<wire x1="119.38" y1="33.02" x2="127" y2="33.02" width="0.1524" layer="91"/>
+<junction x="127" y="33.02"/>
+<pinref part="SV4" gate="1" pin="3"/>
+<wire x1="119.38" y1="30.48" x2="127" y2="30.48" width="0.1524" layer="91"/>
+<junction x="127" y="30.48"/>
 </segment>
 </net>
 <net name="N$16" class="0">

@@ -386,6 +386,44 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="-1.27" y="1.397" size="0.6096" layer="25" font="vector" ratio="20">&gt;NAME</text>
 <text x="-1.27" y="-2.032" size="0.6096" layer="27" font="vector" ratio="20">&gt;VALUE</text>
 </package>
+<package name="1X03">
+<description>&lt;h3&gt;Plated Through Hole - 3 Pin&lt;/h3&gt;
+&lt;p&gt;Specifications:
+&lt;ul&gt;&lt;li&gt;Pin count:3&lt;/li&gt;
+&lt;li&gt;Pin pitch:0.1"&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+&lt;p&gt;Example device(s):
+&lt;ul&gt;&lt;li&gt;CONN_03&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;</description>
+<wire x1="3.81" y1="0.635" x2="4.445" y2="1.27" width="0.2032" layer="21"/>
+<wire x1="4.445" y1="1.27" x2="5.715" y2="1.27" width="0.2032" layer="21"/>
+<wire x1="5.715" y1="1.27" x2="6.35" y2="0.635" width="0.2032" layer="21"/>
+<wire x1="6.35" y1="-0.635" x2="5.715" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="5.715" y1="-1.27" x2="4.445" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="4.445" y1="-1.27" x2="3.81" y2="-0.635" width="0.2032" layer="21"/>
+<wire x1="-0.635" y1="1.27" x2="0.635" y2="1.27" width="0.2032" layer="21"/>
+<wire x1="0.635" y1="1.27" x2="1.27" y2="0.635" width="0.2032" layer="21"/>
+<wire x1="1.27" y1="-0.635" x2="0.635" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="1.27" y1="0.635" x2="1.905" y2="1.27" width="0.2032" layer="21"/>
+<wire x1="1.905" y1="1.27" x2="3.175" y2="1.27" width="0.2032" layer="21"/>
+<wire x1="3.175" y1="1.27" x2="3.81" y2="0.635" width="0.2032" layer="21"/>
+<wire x1="3.81" y1="-0.635" x2="3.175" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="3.175" y1="-1.27" x2="1.905" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="1.905" y1="-1.27" x2="1.27" y2="-0.635" width="0.2032" layer="21"/>
+<wire x1="-1.27" y1="0.635" x2="-1.27" y2="-0.635" width="0.2032" layer="21"/>
+<wire x1="-0.635" y1="1.27" x2="-1.27" y2="0.635" width="0.2032" layer="21"/>
+<wire x1="-1.27" y1="-0.635" x2="-0.635" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="0.635" y1="-1.27" x2="-0.635" y2="-1.27" width="0.2032" layer="21"/>
+<wire x1="6.35" y1="0.635" x2="6.35" y2="-0.635" width="0.2032" layer="21"/>
+<pad name="1" x="0" y="0" drill="1.016" diameter="1.8796" rot="R90"/>
+<pad name="2" x="2.54" y="0" drill="1.016" diameter="1.8796" rot="R90"/>
+<pad name="3" x="5.08" y="0" drill="1.016" diameter="1.8796" rot="R90"/>
+<rectangle x1="4.826" y1="-0.254" x2="5.334" y2="0.254" layer="51"/>
+<rectangle x1="2.286" y1="-0.254" x2="2.794" y2="0.254" layer="51"/>
+<rectangle x1="-0.254" y1="-0.254" x2="0.254" y2="0.254" layer="51"/>
+<text x="-1.27" y="1.397" size="0.6096" layer="25" font="vector" ratio="20">&gt;NAME</text>
+<text x="-1.27" y="-2.032" size="0.6096" layer="27" font="vector" ratio="20">&gt;VALUE</text>
+</package>
 </packages>
 </library>
 <library name="SparkFun-IC-Microcontroller">
@@ -760,20 +798,26 @@ design rules under a new name.</description>
 <attribute name="PROD_ID" value="CONN-08438" x="7.62" y="55.88" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="16.51" y="51.308" size="0.6096" layer="27" font="vector" ratio="20"/>
 </element>
-<element name="J5" library="SparkFun-Connectors" package="1X10" value="" x="2.54" y="46.99" smashed="yes">
-<attribute name="NAME" x="1.27" y="48.387" size="0.6096" layer="25" font="vector" ratio="20"/>
-<attribute name="PROD_ID" value="CONN-11563" x="2.54" y="46.99" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="1.27" y="44.958" size="0.6096" layer="27" font="vector" ratio="20"/>
+<element name="J5" library="SparkFun-Connectors" package="1X10" value="" x="2.54" y="74.93" smashed="yes">
+<attribute name="PROD_ID" value="CONN-11563" x="2.54" y="74.93" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="1.27" y="72.898" size="0.6096" layer="27" font="vector" ratio="20"/>
 </element>
-<element name="J6" library="SparkFun-Connectors" package="1X10" value="" x="2.54" y="43.18" smashed="yes">
-<attribute name="NAME" x="1.27" y="44.577" size="0.6096" layer="25" font="vector" ratio="20"/>
-<attribute name="PROD_ID" value="CONN-11563" x="2.54" y="43.18" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="1.27" y="41.148" size="0.6096" layer="27" font="vector" ratio="20"/>
+<element name="J6" library="SparkFun-Connectors" package="1X03" value="455-1750-1-ND" x="27.94" y="74.93" smashed="yes">
+<attribute name="PROD_ID" value="XXX-00000" x="27.94" y="74.93" size="1.778" layer="27" display="off"/>
 </element>
-<element name="J7" library="SparkFun-Connectors" package="1X10" value="" x="2.54" y="39.37" smashed="yes">
-<attribute name="NAME" x="1.27" y="40.767" size="0.6096" layer="25" font="vector" ratio="20"/>
-<attribute name="PROD_ID" value="CONN-11563" x="2.54" y="39.37" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="1.27" y="37.338" size="0.6096" layer="27" font="vector" ratio="20"/>
+<element name="J7" library="SparkFun-Connectors" package="1X03" value="455-1750-1-ND" x="35.56" y="74.93" smashed="yes">
+<attribute name="PROD_ID" value="XXX-00000" x="35.56" y="74.93" size="1.778" layer="27" display="off"/>
+</element>
+<element name="J8" library="SparkFun-Connectors" package="1X03" value="455-1750-1-ND" x="43.18" y="74.93" smashed="yes">
+<attribute name="PROD_ID" value="XXX-00000" x="43.18" y="74.93" size="1.778" layer="27" display="off"/>
+</element>
+<element name="SV3" library="con-lstb" library_urn="urn:adsk.eagle:library:162" package="MA04-1" package3d_urn="urn:adsk.eagle:package:8337/1" value="" x="7.62" y="45.72" smashed="yes">
+<attribute name="MF" value="" x="7.62" y="45.72" size="1.778" layer="27" display="off"/>
+<attribute name="MPN" value="" x="7.62" y="45.72" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="2.54" y="47.371" size="1.27" layer="25" ratio="10"/>
+<attribute name="OC_FARNELL" value="unknown" x="7.62" y="45.72" size="1.778" layer="27" display="off"/>
+<attribute name="OC_NEWARK" value="unknown" x="7.62" y="45.72" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="8.255" y="47.371" size="1.27" layer="27" ratio="10"/>
 </element>
 </elements>
 <signals>
@@ -811,6 +855,10 @@ design rules under a new name.</description>
 <wire x1="21.9456" y1="88.2396" x2="21.4884" y2="88.6968" width="0.762" layer="16"/>
 <wire x1="6.4008" y1="88.6968" x2="6.35" y2="88.9" width="0.762" layer="16"/>
 <via x="21.9456" y="88.2396" extent="1-16" drill="0.35"/>
+<contactref element="SV3" pad="2"/>
+<contactref element="SV3" pad="1"/>
+<wire x1="6.35" y1="45.72" x2="25.146" y2="80.01" width="0" layer="19" extent="1-1"/>
+<wire x1="3.81" y1="45.72" x2="6.35" y2="45.72" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$2">
 <contactref element="U1" pad="8"/>
@@ -934,6 +982,10 @@ design rules under a new name.</description>
 <wire x1="20.1168" y1="90.5256" x2="19.2024" y2="90.5256" width="0.762" layer="1"/>
 <wire x1="20.1168" y1="80.01" x2="20.32" y2="80.01" width="0.762" layer="1"/>
 <wire x1="20.1168" y1="90.5256" x2="20.447" y2="90.805" width="0.762" layer="1"/>
+<contactref element="SV3" pad="4"/>
+<contactref element="SV3" pad="3"/>
+<wire x1="11.43" y1="45.72" x2="20.1168" y2="80.01" width="0" layer="19" extent="1-1"/>
+<wire x1="8.89" y1="45.72" x2="11.43" y2="45.72" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$8">
 <contactref element="U1" pad="3"/>
