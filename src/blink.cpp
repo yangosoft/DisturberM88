@@ -7,11 +7,13 @@
 #include <avr/sleep.h> 
 
 
-#define LED _BV(PD6)     // = (1 << PB0)
 
 
-#define LED_DDR DDRD
-#define LED_PORT PORTD
+
+
+#define BUZZER_PIN PB3
+#define BUZZER_PORT PORTB
+#define BUZZER_DDR DDRB
 
 volatile uint16_t seconds = 0;
 volatile uint32_t secondsUptime = 0;
@@ -23,9 +25,8 @@ STATE state;
 /**
  * clock runs at 1 MHz, so if we set the prescaler to 8192, the clock used for the timer will have a period of 1/(1E6/8192) = 8.192 ms. So we will need to count 122 of these adjusted clock cycles to amount to nearly 1 second (122*8.192ms = 999.424 ms).
 */
-void initTimer1(void)
+void initTimer1()
 {
-    
   TCCR1 |= (1 << CTC1);  // clear timer on compare match
   TCCR1 |= (1 << CS13) | (1 << CS12) | (1 << CS11); //clock prescaler 8192
   OCR1C = 122; // compare match value 
@@ -34,18 +35,18 @@ void initTimer1(void)
 
 void setupGPIO()
 {       
-    DDRB |= (1<<PB3);
+    BUZZER_DDR |= (1<<BUZZER_PIN);
 }
 
 
-void setGreen(bool on)
+void setPinBuzzer(bool on)
 {
     if(on)
     {
-        PORTB |= _BV(PB3);
+        BUZZER_PORT |= _BV(BUZZER_PIN);
     }else
     {
-        PORTB &= ~_BV(PB3);
+        BUZZER_PORT &= ~_BV(BUZZER_PIN);
     }
 }
 
@@ -76,18 +77,18 @@ int main (void)
     setupGPIO();
     initTimer1();
     sei();    
-    setGreen(true);
+    setPinBuzzer(true);
     _delay_ms(1);
-    setGreen(false);
+    setPinBuzzer(false);
     _delay_ms(1000);
     enableSleep();
     while(1)
     {
         if (seconds == 59)
         {
-            setGreen(true);
+            setPinBuzzer(true);
             _delay_ms(1);
-            setGreen(false);
+            setPinBuzzer(false);
             _delay_ms(50);
             seconds = 0;
             enableSleep();
