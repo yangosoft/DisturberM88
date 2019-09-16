@@ -14,6 +14,10 @@
 #define LED_PORT PORTD
 
 volatile uint16_t seconds = 0;
+volatile uint32_t secondsUptime = 0;
+
+enum class STATE : int { WAIT, ACTIVE };
+STATE state;
 
 
 /**
@@ -62,7 +66,7 @@ void enableSleep()
 ISR(TIMER1_COMPA_vect)
 {
     seconds++;
-    
+    secondsUptime++;
 }
 
 
