@@ -7,9 +7,24 @@
 #include <avr/sleep.h> 
 
 
+struct Time 
+{
+    uint16_t day;
+    uint8_t h;
+    uint8_t m;
+    uint8_t s;
+    Time(uint16_t day, uint8_t h, uint8_t m, uint8_t s)
+    {
+        this->day = day;
+        this->h = h;
+        this->m = m;
+        this->s = s;
+    }
+    
+};
 
 
-
+Time now{260,8,0,0};
 
 #define BUZZER_PIN PB3
 #define BUZZER_PORT PORTB
@@ -23,7 +38,8 @@ STATE state;
 
 
 /**
- * clock runs at 1 MHz, so if we set the prescaler to 8192, the clock used for the timer will have a period of 1/(1E6/8192) = 8.192 ms. So we will need to count 122 of these adjusted clock cycles to amount to nearly 1 second (122*8.192ms = 999.424 ms).
+ * Clock 1 MHz, prescaler to 8192, timer1 period of 1/(1E6/8192) = 8.192 ms. 
+ * Count 122 clock cycles to amount to nearly 1 second (122*8.192ms = 999.424 ms).
 */
 void initTimer1()
 {
@@ -68,9 +84,32 @@ ISR(TIMER1_COMPA_vect)
 {
     seconds++;
     secondsUptime++;
+    now.s++;
+    if ( now.s > 59)
+    {
+        now.s = 0;
+        now.m++;
+        if ( now.m > 59 )
+        {
+            now.m = 0;
+            now.h++;
+            if ( now.h > 24 )
+            {
+                now.h = 0;
+                now.day++;
+            }
+        }
+    }
 }
 
-
+void disturb()
+{
+    setPinBuzzer(true);
+    _delay_ms(1);
+    setPinBuzzer(false);
+    _delay_ms(50);
+    seconds = 0;
+}
 
 int main (void) 
 {   
@@ -84,13 +123,13 @@ int main (void)
     enableSleep();
     while(1)
     {
-        if (seconds == 59)
+        
+        if((now.h == 1) && (now.m < 30 ))
         {
-            setPinBuzzer(true);
-            _delay_ms(1);
-            setPinBuzzer(false);
-            _delay_ms(50);
-            seconds = 0;
+            disturb();
+        }
+        else
+        {
             enableSleep();
         }
     }
