@@ -102,6 +102,17 @@ ISR(TIMER1_COMPA_vect)
     }
 }
 
+
+/* @warning: delays in 10ms steps  */
+void delayMs(int32_t ms)
+{
+    while(ms > 0)
+    {
+        _delay_ms(10);
+        ms = ms - 10;
+    }
+}
+
 void disturb()
 {
     setPinBuzzer(true);
@@ -109,6 +120,60 @@ void disturb()
     setPinBuzzer(false);
     _delay_ms(50);
     seconds = 0;
+}
+
+
+void disturb1()
+{
+    uint32_t i = 500;
+    int32_t j = 100;
+    
+    auto now = secondsUptime;
+    
+    while(1)
+    {
+        setPinBuzzer(true);
+        delayMs(i);
+        setPinBuzzer(false);
+    
+        if(j>0)
+        {
+                delayMs(j);
+                j--;
+        }
+            
+        i++;
+        if((secondsUptime - now) > 1)
+        {
+            now = 0;
+            do
+            {
+                enableSleep();
+                now++;
+            }while(now < 5);
+            now = secondsUptime;
+        }
+    }
+}
+
+void disturb2()
+{
+    uint32_t i = 500;
+    int32_t j = 1000;
+    while(1)
+    {
+        setPinBuzzer(true);
+        delayMs(i);
+        setPinBuzzer(false);
+    
+        if(j>0)
+        {
+                j--;
+        }
+        delayMs(j);
+            
+        i++;
+    }
 }
 
 int main (void) 
