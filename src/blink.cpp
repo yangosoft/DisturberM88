@@ -30,6 +30,7 @@ Time now{260,8,0,0};
 #define BUZZER_PORT PORTB
 #define BUZZER_DDR DDRB
 
+volatile uint8_t halfseconds = 0;
 volatile uint16_t seconds = 0;
 volatile uint32_t secondsUptime = 0;
 
@@ -38,15 +39,16 @@ STATE state;
 
 
 /**
- * Clock 1 MHz, prescaler to 8192, timer1 period of 1/(1E6/8192) = 8.192 ms. 
- * Count 122 clock cycles to amount to nearly 1 second (122*8.192ms = 999.424 ms).
+ * Clock 1 MHz, prescaler to 256, timer1 period of 1/(1E6/1024) = 0.000256 s. 
+ * Count 198 clock cycles to amount to nearly 0.5 second (198 * 0.000256s = 0.05688s).
 */
 void initTimer1()
 {
-  TCCR1 |= (1 << CTC1);  // clear timer on compare match
-  TCCR1 |= (1 << CS13) | (1 << CS12) | (1 << CS11); //clock prescaler 8192
-  OCR1C = 122; // compare match value 
-  TIMSK |= (1 << OCIE1A); // enable compare match interrupt
+    
+  TCCR0A |= (1 << WGM01); // clear timer on compare match
+  TCCR0B |= (1 << CS02) | (1 << CS00); //clock prescaler 1024
+  OCR0A = 198; // compare match value 
+  TIMSK0 |= (1 << OCIE0A); // enable compare match interrupt
 }
 
 void setupGPIO()
@@ -80,11 +82,16 @@ void enableSleep()
 }
 
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIM0_COMPA_vect)
 {
-    seconds++;
-    secondsUptime++;
-    now.s++;
+    halfseconds++;
+    if(halfseconds == 2)
+    {
+        seconds++;
+        secondsUptime++;
+        now.s++;
+        halfseconds = 0;
+    }
     if ( now.s > 59)
     {
         now.s = 0;
