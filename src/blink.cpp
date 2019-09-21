@@ -6,43 +6,28 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h> 
 
-
-struct Time 
-{
-    uint16_t day;
-    uint8_t h;
-    uint8_t m;
-    uint8_t s;
-    Time(uint16_t day, uint8_t h, uint8_t m, uint8_t s)
-    {
-        this->day = day;
-        this->h = h;
-        this->m = m;
-        this->s = s;
-    }
-    
-};
+volatile uint8_t day{0};
+volatile uint8_t h{0};
+volatile uint8_t m{0};
 
 
-Time now{260,8,0,0};
 
 #define BUZZER_PIN PB3
 #define BUZZER_PORT PORTB
 #define BUZZER_DDR DDRB
 
-volatile uint8_t halfseconds = 0;
+volatile uint8_t ms = 0;
 volatile uint16_t seconds = 0;
 volatile uint32_t secondsUptime = 0;
 
-enum class STATE : int { WAIT, ACTIVE };
-STATE state;
+
 
 
 /**
- * Clock 1 MHz, prescaler to 256, timer1 period of 1/(1E6/1024) = 0.000256 s. 
- * Count 198 clock cycles to amount to nearly 0.5 second (198 * 0.000256s = 0.05688s).
+ * Clock 1 MHz, prescaler to 1024, timer1 period of 1/(1E6/1024) = 0.001024 s. 
+ * Count 198 clock cycles to amount to nearly 0.202 second (198 * 0.001024s = 0,202752s).
 */
-void initTimer1()
+inline void initTimer1()
 {
     
   TCCR0A |= (1 << WGM01); // clear timer on compare match
@@ -51,13 +36,13 @@ void initTimer1()
   TIMSK0 |= (1 << OCIE0A); // enable compare match interrupt
 }
 
-void setupGPIO()
+inline void setupGPIO()
 {       
     BUZZER_DDR |= (1<<BUZZER_PIN);
 }
 
 
-void setPinBuzzer(bool on)
+inline void setPinBuzzer(bool on)
 {
     if(on)
     {
@@ -69,7 +54,7 @@ void setPinBuzzer(bool on)
 }
 
 
-void enableSleep()
+inline void enableSleep()
 {
     cli();
     set_sleep_mode(SLEEP_MODE_IDLE);
@@ -84,53 +69,45 @@ void enableSleep()
 
 ISR(TIM0_COMPA_vect)
 {
-    halfseconds++;
-    if(halfseconds == 2)
+    ms+=200;
+    if(ms >= 1000)
     {
-        seconds++;
+        
         secondsUptime++;
-        now.s++;
-        halfseconds = 0;
+        seconds++;
+        
     }
-    if ( now.s > 59)
+    if ( seconds > 59)
     {
-        now.s = 0;
-        now.m++;
-        if ( now.m > 59 )
+        seconds = 0;
+        m++;
+        if ( m > 59 )
         {
-            now.m = 0;
-            now.h++;
-            if ( now.h > 24 )
+            m = 0;
+            h++;
+            if ( h > 24 )
             {
-                now.h = 0;
-                now.day++;
+                h = 0;
+                day++;
             }
         }
     }
 }
 
 
-/* @warning: delays in 10ms steps  */
-void delayMs(int32_t ms)
+
+inline void delayMs(int32_t ms)
 {
     while(ms > 0)
     {
-        _delay_ms(10);
-        ms = ms - 10;
+        _delay_ms(1);
+        ms = ms - 1;
     }
 }
 
-void disturb()
-{
-    setPinBuzzer(true);
-    _delay_ms(1);
-    setPinBuzzer(false);
-    _delay_ms(50);
-    seconds = 0;
-}
 
 
-void disturb1()
+inline void disturb()
 {
     uint32_t i = 500;
     int32_t j = 100;
@@ -163,25 +140,7 @@ void disturb1()
     }
 }
 
-void disturb2()
-{
-    uint32_t i = 500;
-    int32_t j = 1000;
-    while(1)
-    {
-        setPinBuzzer(true);
-        delayMs(i);
-        setPinBuzzer(false);
-    
-        if(j>0)
-        {
-                j--;
-        }
-        delayMs(j);
-            
-        i++;
-    }
-}
+
 
 int main (void) 
 {   
@@ -196,7 +155,7 @@ int main (void)
     while(1)
     {
         
-        if((now.h == 1) && (now.m < 30 ))
+        if((h == 1) && (m < 30 ))
         {
             disturb();
         }
