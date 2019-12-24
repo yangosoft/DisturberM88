@@ -1,5 +1,5 @@
 
-#define F_CPU   1000000UL
+#define F_CPU   600000UL
 #include <avr/io.h>
 
 #include <util/delay.h>
@@ -16,23 +16,29 @@ volatile uint8_t m{0};
 #define BUZZER_PORT PORTB
 #define BUZZER_DDR DDRB
 
-volatile uint8_t ms = 0;
+volatile uint16_t ms = 0;
 volatile uint16_t seconds = 0;
 volatile uint32_t secondsUptime = 0;
 
+uint8_t disturbWait = 0;
 
 
 
 /**
  * Clock 1 MHz, prescaler to 1024, timer1 period of 1/(1E6/1024) = 0.001024 s. 
  * Count 198 clock cycles to amount to nearly 0.202 second (198 * 0.001024s = 0,202752s).
+ * * Clock 1.2MHz Preescaler 1024. 1/1.2E6/1024 =  0,0008533s
+ * Count 235 clock cycles to 0,200533333333s (235 * 0,0008533s)
+ * * Clock 0.6MHz Preescaler 1024. 1/0.6E6/1024 = 0,00170666666667s
+ * Count 117 clock cycles to 0,19968s (235 * 0,0008533
+ * 
 */
 inline void initTimer1()
 {
     
   TCCR0A |= (1 << WGM01); // clear timer on compare match
   TCCR0B |= (1 << CS02) | (1 << CS00); //clock prescaler 1024
-  OCR0A = 198; // compare match value 
+  OCR0A = 117; // compare match value 
   TIMSK0 |= (1 << OCIE0A); // enable compare match interrupt
 }
 
@@ -75,7 +81,7 @@ ISR(TIM0_COMPA_vect)
         
         secondsUptime++;
         seconds++;
-        
+        ms = 0;
     }
     if ( seconds > 59)
     {
@@ -98,6 +104,7 @@ ISR(TIM0_COMPA_vect)
 
 inline void delayMs(int32_t ms)
 {
+    ms=ms;
     while(ms > 0)
     {
         _delay_ms(1);
@@ -109,34 +116,18 @@ inline void delayMs(int32_t ms)
 
 inline void disturb()
 {
-    uint32_t i = 500;
-    int32_t j = 100;
-    
-    auto now = secondsUptime;
-    
-    while(1)
+    for(auto i = 0; i < 1000; ++i)
     {
-        setPinBuzzer(true);
-        delayMs(i);
-        setPinBuzzer(false);
-    
-        if(j>0)
-        {
-                delayMs(j);
-                j--;
-        }
-            
-        i++;
-        if((secondsUptime - now) > 1)
-        {
-            now = 0;
-            do
+            setPinBuzzer(true);
+            for(auto j = 0; j < disturbWait; ++j)
             {
-                enableSleep();
-                now++;
-            }while(now < 5);
-            now = secondsUptime;
-        }
+                _delay_ms(5);
+            }
+            setPinBuzzer(false);
+            for(auto j = 0; j < disturbWait; ++j)
+            {
+                _delay_ms(5);
+            }
     }
 }
 
@@ -144,24 +135,51 @@ inline void disturb()
 
 int main (void) 
 {   
+    h=21;
+    m=26;
     setupGPIO();
     initTimer1();
     sei();    
+//     setPinBuzzer(true);
+//     _delay_ms(1000);
+//     setPinBuzzer(false);
+//     _delay_ms(1000);
+//     enableSleep();
+    
     setPinBuzzer(true);
-    _delay_ms(1);
+    _delay_ms(100);
     setPinBuzzer(false);
-    _delay_ms(1000);
-    enableSleep();
+    
+    auto last = secondsUptime;
+    auto lastM = m;
     while(1)
     {
+        if (secondsUptime - last > 10)
+        {
+            setPinBuzzer(true);
+            _delay_ms(50);
+            setPinBuzzer(false);
+            last = secondsUptime;
+        }
         
-        if((h == 1) && (m < 30 ))
+        /*if(lastM != m)
         {
-            disturb();
-        }
-        else
-        {
-            enableSleep();
-        }
+            setPinBuzzer(true);
+            _delay_ms(100);
+            setPinBuzzer(false);
+            //     _delay_ms(1000);
+            lastM = m;
+        }*/
+        
+           /* if(secondsUptime - last > 5)
+            {
+                disturb();
+                last = secondsUptime;
+                disturbWait++;
+                disturbWait = disturbWait % 12;
+            }*/
+        
+//     enableSleep();
+    
     }
 }
