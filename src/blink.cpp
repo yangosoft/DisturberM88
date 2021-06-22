@@ -154,14 +154,16 @@ int main (void)
     auto lastM = m;
     while(1)
     {
-        if (secondsUptime - last > 10)
-        {
+         if (secondsUptime - last > 10)
+         {
             setPinBuzzer(true);
             _delay_ms(50);
             setPinBuzzer(false);
             last = secondsUptime;
-        }
-        
+         }
+         disturb();
+        disturbWait++;
+                disturbWait = disturbWait % 24;
         /*if(lastM != m)
         {
             setPinBuzzer(true);
@@ -179,7 +181,7 @@ int main (void)
                 disturbWait = disturbWait % 12;
             }*/
         
-//     enableSleep();
+//      enableSleep();
     
     }
 }
